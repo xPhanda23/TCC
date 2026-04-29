@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* CONTAINER */
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* LADO ESQUERDO */
+.login-left {
+    flex: 1;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    max-width: 400px;
+}
+
+.overlay h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.overlay p {
+    margin-bottom: 20px;
+}
+
+.overlay ul {
+    list-style: none;
+}
+
+.overlay li {
+    margin-bottom: 10px;
+}
+
+/* LADO DIREITO */
+.login-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 320px;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+}
+
+/* INPUT FLOAT */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: white;
+    padding: 0 5px;
+    color: #666;
+    transition: 0.2s;
+}
+
+/* animação label */
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 0.75rem;
+    color: #2563eb;
+}
+
+/* OPTIONS */
+.options {
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+}
+
+/* ERRO */
+.error {
+    color: red;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+/* BOTÃO */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+/* LOADING */
+button.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .login-left {
+        display: none;
+    }
+
+    .login-container {
+        justify-content: center;
+    }
+}

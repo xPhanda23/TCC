@@ -1,84 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Configurações básicas -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Controle de Acesso</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Controle de Acesso</title>
 
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Descrição para SEO (opcional, mas profissional) -->
-    <meta name="description" content="Sistema de controle de acesso escolar">
-
-    <!-- Fonte padrão (Google Fonts pode vir depois) -->
+<link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
 
-    <!-- Container principal da página -->
-    <main class="container">
+<div class="login-container">
 
-        <!-- Card central de login -->
-        <section class="login-card">
+    <!-- LADO ESQUERDO (branding) -->
+    <div class="login-left">
+        <div class="overlay">
+            <h1>Controle de Acesso</h1>
+            <p>Gerencie entradas, permissões e segurança em tempo real</p>
 
-            <!-- Cabeçalho -->
-            <header class="login-header">
-                <h1>Controle de Acesso</h1>
-                <p>Acesse o sistema com suas credenciais</p>
-            </header>
+            <ul>
+                <li>✔ Controle por horários</li>
+                <li>✔ Logs em tempo real</li>
+                <li>✔ Integração com dispositivos</li>
+            </ul>
+        </div>
+    </div>
 
-            <!-- Formulário de login -->
-            <form id="loginForm" novalidate>
+    <!-- LADO DIREITO (login) -->
+    <div class="login-right">
 
-                <!-- Campo de email -->
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Digite seu email"
-                        required
-                        autocomplete="email"
-                    >
-                </div>
+        <form id="loginForm" class="login-form">
 
-                <!-- Campo de senha -->
-                <div class="input-group">
-                    <label for="password">Senha</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        placeholder="Digite sua senha"
-                        required
-                        autocomplete="current-password"
-                    >
-                </div>
+            <h2>Entrar</h2>
 
-                <!-- Mensagem de erro (dinâmica via JS depois) -->
-                <div class="error-message" id="errorMessage" hidden>
-                    Email ou senha inválidos
-                </div>
+            <div class="input-group">
+                <input type="email" id="email" required>
+                <label>Email</label>
+            </div>
 
-                <!-- Botão de login -->
-                <button type="submit" class="login-button">
-                    Entrar
-                </button>
+            <div class="input-group">
+                <input type="password" id="password" required>
+                <label>Senha</label>
+            </div>
 
-            </form>
+            <div class="options">
+                <label>
+                    <input type="checkbox" id="showPassword">
+                    Mostrar senha
+                </label>
+            </div>
 
-            <!-- Rodapé -->
-            <footer class="login-footer">
-                <small>
-                    Acesso restrito a administradores e professores
-                </small>
-            </footer>
+            <div class="error" id="errorMessage"></div>
 
-        </section>
+            <button type="submit" id="loginBtn">
+                Entrar
+            </button>
 
-    </main>
+        </form>
 
+    </div>
+
+</div>
+
+<script src="./js/login.js"></script>
 </body>
 </html>

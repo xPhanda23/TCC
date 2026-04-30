@@ -1,45 +1,30 @@
 import express from "express";
-import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import cors from "cors";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import roomRoutes from "./routes/rooms.js";
+import permissionRoutes from "./routes/permissions.js";
+import accessRoutes from "./routes/access.js";
+import logRoutes from "./routes/logs.js";
 
 const app = express();
-const prisma = new PrismaClient({
-  datasourceUrl: "mysql://root:@localhost:3306/controleacesso"
-});
 
+app.use(cors());
 app.use(express.json());
 
-app.post("/api/register", async (req, res) => {
-  const { email, password } = req.body;
+// Rotas
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/rooms", roomRoutes);
+app.use("/api/permissions", permissionRoutes);
+app.use("/api/access", accessRoutes);
+app.use("/api/logs", logRoutes);
 
-  try {
-    // verifica se já existe
-    const userExists = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (userExists) {
-      return res.status(400).json({ error: "Email já cadastrado" });
-    }
-
-    // hash da senha
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // salva no banco
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-      },
-    });
-
-    res.status(201).json({ message: "Usuário criado", user });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Erro no servidor" });
-  }
+// Rota de saúde — útil para testar se o servidor está de pé
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 app.listen(3000, () => {
-  console.log("Server rodando em http://localhost:3000");
+  console.log("Servidor rodando em http://localhost:3000");
 });

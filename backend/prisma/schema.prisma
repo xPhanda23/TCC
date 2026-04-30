@@ -5,4 +5,72 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  role        Role     @default(ALUNO)
+  cardId      String?  @unique
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  permissions Permission[]
+  accessLogs  AccessLog[]
+}
+
+model Room {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  permissions Permission[]
+  accessLogs  AccessLog[]
+}
+
+model Permission {
+  id        String    @id @default(uuid())
+  userId    String
+  roomId    String
+  startTime String    // "08:00"
+  endTime   String    // "18:00"
+  weekDays  String    // "1,2,3,4,5"
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roomId])
+}
+
+model AccessLog {
+  id         String       @id @default(uuid())
+  userId     String?
+  roomId     String
+  cardId     String
+  result     AccessResult
+  reason     String?
+  accessedAt DateTime     @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  room Room  @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  PROFESSOR
+  ALUNO
+  VISITANTE
+}
+
+enum AccessResult {
+  GRANTED
+  DENIED
 }
